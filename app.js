@@ -32,7 +32,7 @@ var feedbacks = mongoose.model('feedbacks', feedbackSchema);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, 'public')));
 
-app.post('/post-feedback', function (req, res) {
+app.post('/route', function (req, res) {
     var f= new feedbacks;
     f.name = req.body['client-name'];
     f.email = req.body['client-email'];

@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Please fill data in the form below:</h1>
-    <form method="POST" action="/post-feedback">
+    <form id="form" method="POST" action="">
         <label>Name:<input type="text" name="client-name" required></label>
         <br>
         <label>Email:<input type="text" name="client-email" required></label>
@@ -36,8 +36,11 @@
 //       .fail(function(e) {
 //         console.log(e);
 //       });
-
-fetch('/view-feedbacks')
+//var url= window.location.href
+document.getElementById("form").addEventListener('submit', function(e) {
+  e.preventDefault();
+ // fetch(`${url}`)
+ fetch('/route')
 .then((response => {
          status = response.status;
          return response.json()
@@ -51,11 +54,9 @@ fetch('/view-feedbacks')
         for (x in response.comments) {
         document.getElementById("comments").innerHTML += response.comments[x].email+'<br>'+response.comments[x].comment+'<br>';
 }
-    })
+    }).catch(err => console.log('fetch didn\'t succeed'+err));
 
-
-   
-
+})
 
     </script>
 
