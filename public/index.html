@@ -15,31 +15,12 @@
         <br>
         <input type="submit" value="Submit">
     </form>
-    <a href="/view-feedbacks">View feedbacks</a>
     <ul id=comments></ul>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-//       $.ajax({
-//         url: '/view-feedbacks',
-//         type: 'GET'
-//       })
-//       .done(function(feedbacks) {
-//         console.log(feedbacks)
-//         for(let i=0; i<feedbacks.comments.length; i++){
-//             $('#comments').append(feedbacks.comments[i].email)
-//             console.log(feedbacks.comments[i].email);
-//         }
-//         console.log(feedbacks.comments.length)
 
-// })
-      
-//       .fail(function(e) {
-//         console.log(e);
-//       });
-//var url= window.location.href
 document.getElementById("form").addEventListener('submit', function(e) {
   e.preventDefault();
- // fetch(`${url}`)
  fetch('/route')
 .then((response => {
          status = response.status;

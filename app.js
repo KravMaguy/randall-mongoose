@@ -3,14 +3,11 @@ function log(x){
 }
 var express = require('express');
 const fetch = require("node-fetch");
-
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose= require('mongoose');
 mongoose.connect('mongodb://localhost:27017/feedbacks',{useNewUrlParser: true});
-//var mongodb = require('mongodb');
 log('connected');
-// var dbConn = mongodb.MongoClient.connect('mongodb://localhost:27017',{ useNewUrlParser: true } );
 var app = express();
 
 var Schema = mongoose.Schema;
@@ -40,7 +37,6 @@ app.post('/route', function (req, res) {
     log('I am in post feedback')
     f.save(function(err, data){ 
         if (err){
-         //return log(err);
          res.send({
             status:'failure',
             error: err
@@ -56,29 +52,13 @@ app.post('/route', function (req, res) {
 });
 
 
-// app.get('/view-feedbacks',  function(req, res) {
-//     dbConn.then(function(db) {
-//         db.collection('feedbacks').find({}).toArray().then(function(feedbacks) {
-//             res.status(200).json(feedbacks);
-//         });
-		
-//     }).catch(function(error) {
-//         res.json({"message": "Hello json"})
-//        });
-// });
-
 
 app.get('/route',  function(req, res) {
     
     feedbacks.find({}, function(error, comments) {
-        // console.log(comments); 
         res.json({comments})
     });
 });
-
-
-
-
 
 
 
