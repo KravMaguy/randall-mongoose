@@ -68,7 +68,7 @@ app.post('/route', function (req, res) {
 // });
 
 
-app.get('/view-feedbacks',  function(req, res) {
+app.get('/route',  function(req, res) {
     
     feedbacks.find({}, function(error, comments) {
         // console.log(comments); 
