@@ -1,23 +1,42 @@
 <!doctype html>
 <html lang="en">
 <head>
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="styles.css">
+</head>
     <meta charset="UTF-8">
     <title>Client Data</title>
 </head>
 <body>
-    <h1>Please fill data in the form below:</h1>
-    <form id="form" method="POST" action="">
-        <label>Name:<input type="text" name="client-name" required></label>
-        <br>
-        <label>Email:<input type="text" name="client-email" required></label>
-        <br>
-        <label>Comment:<br><textarea name="comment"></textarea></label>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-    <ul id=comments></ul>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <div class= "container">
+
+			<div class="row h-100 justify-content-center align-items-center">
+
+				<div class="col-md-5 col-sm-9 col-xs-9">
+                        <h1>Fill data in the form:</h1>
+                        <span>CRUD Demonstration</span>
+
+            <form id="form" method="POST" action="">
+                <label>Name:<input type="text" class='form-control' name="client-name" required></label>
+                <br>
+                <label>Email:<input type="email" class='form-control'name="client-email" required></label>
+                <br>
+                <textarea class="form-control" name="comment" rows="3"></textarea>
+                <br>
+                <button type="submit"  class="btn btn-primary btn-lg btn-block">Submit Data</button>
+            </form>
+
+    <ol id=comments class='list-group'></ol>
+        </div>
+
+        </div>
+        </div>
+        </div>
+
     <script>
+
 
 document.getElementById("form").addEventListener('submit', function(e) {
   e.preventDefault();
@@ -33,7 +52,7 @@ document.getElementById("form").addEventListener('submit', function(e) {
         }) 
         console.log(response.comments)
         for (x in response.comments) {
-        document.getElementById("comments").innerHTML += response.comments[x].email+'<br>'+response.comments[x].comment+'<br>';
+        document.getElementById("comments").innerHTML += '<li class="list-group-item">'+response.comments[x].email+'<li><li class="list-group-item">'+response.comments[x].comment+'<li>';
 }
     }).catch(err => console.log('fetch didn\'t succeed'+err));
 
