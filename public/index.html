@@ -39,26 +39,26 @@
   </div>
 
   <script>
-
-    const commentsElem = document.getElementById("comments");
+   
+    const displayComments = ({ comments }) => {
+      const commentsElem = document.getElementById("comments");
+      commentsElem.innerHTML += comments.reduce((html, comment) => {
+        const commentDiv = `
+              <div>${comment.email}</div>
+              <div>${comment.comment}</div>
+            `;
+        return html += `<li class="list-group-item">${commentDiv}</li>`;
+      }, '');
+    };
 
     const getComments = () => {
       fetch('/route')
         .then(response => response.json())
-        .then(({ comments }) => {
-          commentsElem.innerHTML = comments.reduce((html, comment) => {
-            const commentDiv = `
-              <div>${comment.email}</div>
-              </div>${comment.comment}</div>
-            `;
-            return html += `<li class="list-group-item">${commentDiv}</li>`;
-          }, '');
-        }).catch(err => console.log('fetch get didn\'t succeed' + err));
+        .then(displayComments)
+        .catch(err => console.log('fetch get didn\'t succeed' + err));
     };
 
-    getComments();
-
-    document.getElementById("submit-btn").addEventListener('click', function (e) {
+    const postComment = e => {
       e.preventDefault();
       const formData = new FormData(document.getElementById("form"));
       fetch('/route', {
@@ -66,10 +66,13 @@
         body: new URLSearchParams(formData)
       })
         .then(response => response.json())
-        .then((response) => {
-          getComments();
-        }).catch(err => console.log('fetch post didn\'t succeed' + err));
-    })
+        .then(displayComments)
+        .catch(err => console.log('fetch post didn\'t succeed' + err));
+    };
+
+    getComments();
+    document.getElementById("submit-btn").addEventListener('click', postComment);
+
   </script>
 
 </body>
