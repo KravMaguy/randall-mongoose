@@ -2,15 +2,15 @@ const displayComments = ({ comments }) => {
   const commentsElem = document.getElementById("comments");
   commentsElem.innerHTML += comments.reduce((html, comment) => {
     const commentDiv = `
-              <div>${comment.email}</div>
-              <div>${comment.comment}</div>
-            `;
+      <div>${comment.email}</div>
+      <div>${comment.comment}</div>
+    `;
     return html += `<li class="list-group-item">${commentDiv}</li>`;
   }, '');
 };
 
 const getComments = () => {
-  fetch('/route')
+  fetch('/comments')
     .then(response => response.json())
     .then(displayComments)
     .catch(err => console.log('fetch get didn\'t succeed' + err));
@@ -19,7 +19,7 @@ const getComments = () => {
 const postComment = e => {
   e.preventDefault();
   const formData = new FormData(document.getElementById("form"));
-  fetch('/route', {
+  fetch('/add-comment', {
     method: 'post',
     body: new URLSearchParams(formData)
   })
