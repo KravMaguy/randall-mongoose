@@ -44,7 +44,11 @@ app.post('/route', function (req, res) {
             return;
         }
         res.json({
-            data: req.body,
+            comments: [{
+              name: f.name,
+              email: f.email,
+              comment: f.comment
+            }],
             status: 'success'
         });
     });
@@ -52,7 +56,10 @@ app.post('/route', function (req, res) {
 
 app.get('/route',  function(req, res) {
     feedbacks.find({}, function(error, comments) {
-        res.json({comments})
+      res.json({
+        comments,
+        status: 'sucess'
+      });
     });
 });
 
