@@ -1,64 +1,77 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-   
-    <link rel="stylesheet" href="styles.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
-    <meta charset="UTF-8">
-    <title>Client Data</title>
+<meta charset="UTF-8">
+<title>Client Data</title>
 </head>
+
 <body>
-    <div class= "container">
+  <div class="container">
 
-			<div class="row h-100 justify-content-center align-items-center">
+    <div class="row h-100 justify-content-center align-items-center">
 
-				<div class="col-md-5 col-sm-9 col-xs-9">
-                        <h1>Fill data in the form:</h1>
-                        <span>CRUD Demonstration</span>
+      <div class="col-md-5 col-sm-9 col-xs-9">
+        <h1>Fill data in the form:</h1>
+        <span>CRUD Demonstration</span>
 
-            <form id="form" method="POST" action="">
-                <label>Name:<input type="text" class='form-control' name="client-name" required></label>
-                <br>
-                <label>Email:<input type="email" class='form-control'name="client-email" required></label>
-                <br>
-                <textarea class="form-control" name="comment" rows="3"></textarea>
-                <br>
-                <button type="submit"  class="btn btn-primary btn-lg btn-block">Submit Data</button>
-            </form>
+        <form id="form">
+          <label>Name:<input type="text" class='form-control' name="client-name" required></label>
+          <br>
+          <label>Email:<input type="email" class='form-control' name="client-email" required></label>
+          <br>
+          <textarea class="form-control" name="comment" rows="3"></textarea>
+          <br>
+          <button id="submit-btn" type="submit" class="btn btn-primary btn-lg btn-block">Submit Data</button>
+        </form>
 
-    <ol id=comments class='list-group'></ol>
-        </div>
+        <ol id=comments class='list-group'></ol>
+      </div>
 
-        </div>
-        </div>
-        </div>
+    </div>
+  </div>
+  </div>
 
-    <script>
+  <script>
 
+    const commentsElem = document.getElementById("comments");
 
-document.getElementById("form").addEventListener('submit', function(e) {
-  e.preventDefault();
- fetch('/route')
-.then((response => {
-         status = response.status;
-         return response.json()
-     }))
-    .then(response => {
-       console.log({
-            response: response,
-            status: status
-        }) 
-        console.log(response.comments)
-        for (x in response.comments) {
-        document.getElementById("comments").innerHTML += '<li class="list-group-item">'+response.comments[x].email+'<li><li class="list-group-item">'+response.comments[x].comment+'<li>';
-}
-    }).catch(err => console.log('fetch didn\'t succeed'+err));
+    const getComments = () => {
+      fetch('/route')
+        .then(response => response.json())
+        .then(({ comments }) => {
+          commentsElem.innerHTML = comments.reduce((html, comment) => {
+            const commentDiv = `
+              <div>${comment.email}</div>
+              </div>${comment.comment}</div>
+            `;
+            return html += `<li class="list-group-item">${commentDiv}</li>`;
+          }, '');
+        }).catch(err => console.log('fetch get didn\'t succeed' + err));
+    };
 
-})
+    getComments();
 
-    </script>
+    document.getElementById("submit-btn").addEventListener('click', function (e) {
+      e.preventDefault();
+      const formData = new FormData(document.getElementById("form"));
+      fetch('/route', {
+        method: 'post',
+        body: new URLSearchParams(formData)
+      })
+        .then(response => response.json())
+        .then((response) => {
+          getComments();
+        }).catch(err => console.log('fetch post didn\'t succeed' + err));
+    })
+  </script>
 
 </body>
+
 </html>
