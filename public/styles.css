@@ -11,3 +11,6 @@ h2 {
     font-size: 15px;
 }
 
+.list-group > li {
+    margin: 0.5em 0;
+}
