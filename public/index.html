@@ -1,63 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Client Data</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
+<meta charset="UTF-8">
+<title>Client Data</title>
+</head>
+
 <body>
-    <h1>Please fill data in the form below:</h1>
-    <form method="POST" action="/post-feedback">
-        <label>Name:<input type="text" name="client-name" required></label>
-        <br>
-        <label>Email:<input type="text" name="client-email" required></label>
-        <br>
-        <label>Comment:<br><textarea name="comment"></textarea></label>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-    <a href="/view-feedbacks">View feedbacks</a>
-    <ul id=comments></ul>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-//       $.ajax({
-//         url: '/view-feedbacks',
-//         type: 'GET'
-//       })
-//       .done(function(feedbacks) {
-//         console.log(feedbacks)
-//         for(let i=0; i<feedbacks.comments.length; i++){
-//             $('#comments').append(feedbacks.comments[i].email)
-//             console.log(feedbacks.comments[i].email);
-//         }
-//         console.log(feedbacks.comments.length)
+  <div class="container">
 
-// })
-      
-//       .fail(function(e) {
-//         console.log(e);
-//       });
+    <div class="row h-100 justify-content-center align-items-center">
 
-fetch('/view-feedbacks')
-.then((response => {
-         status = response.status;
-         return response.json()
-     }))
-    .then(response => {
-       console.log({
-            response: response,
-            status: status
-        }) 
-        console.log(response.comments)
-        for (x in response.comments) {
-        document.getElementById("comments").innerHTML += response.comments[x].email+'<br>'+response.comments[x].comment+'<br>';
-}
-    })
+      <div class="col-md-5 col-sm-9 col-xs-9">
+        <h1>Fill data in the form:</h1>
+        <span>CRUD Demonstration</span>
 
+        <form id="form">
+          <label>Name:<input type="text" class='form-control' name="client-name" required></label>
+          <br>
+          <label>Email:<input type="email" class='form-control' name="client-email" required></label>
+          <br>
+          <textarea class="form-control" name="comment" rows="3"></textarea>
+          <br>
+          <button id="submit-btn" type="submit" class="btn btn-primary btn-lg btn-block">Submit Data</button>
+        </form>
 
-   
+        <ol id=comments class='list-group'></ol>
+      </div>
 
+    </div>
+  </div>
+  </div>
 
-    </script>
+  <script src="index.js"></script>
 
 </body>
+
 </html>
