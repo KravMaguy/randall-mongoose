@@ -22,7 +22,7 @@ const displayComments = ({ comments }) => {
     // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
     // because each li element represents a separate comment The ul element is the container for all comments.
 
-    return html += `<li id=${comment._id} class="list-group-item">${commentDiv}</li>`;
+    return html += `<li id=${comment._id} class="list-group-item">${commentDiv}<button type="button" class="btn btn-danger delete">delete</button></li>`;
   }, '');
 };
 
@@ -46,9 +46,9 @@ const postComment = e => {
 };
 
 const deleteComment = e => {
-  e.preventDefault();
-  //const formData = new FormData(document.getElementById("form"));
-  fetch( "/delete" + f.id, {
+  //e.preventDefault();
+  console.log(this)
+  fetch( "/delete" + `${comment._id}`, {
     method: 'DELETE'
   }).then(() => {
      console.log('removed');
@@ -59,3 +59,8 @@ const deleteComment = e => {
 
 getComments();
 document.getElementById("submit-btn").addEventListener('click', postComment);
+var els = document.getElementsByClassName("delete");
+Array.prototype.forEach.call(els, function(el) {
+  console.log(el.tagName);
+  el.addEventListener('click', deleteComment)
+});
