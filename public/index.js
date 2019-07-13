@@ -18,6 +18,9 @@ const displayComments = ({ comments }) => {
     //3.ajnd then when you response back in the callback as long as its a success than remove the element from the dom without refreshing the page.
     //4.notify the user that he did or did not delete it..use a modal or something
     //to accomplish modify index.js routes.js add another endpoint to handle the delete
+    // edit: it was later said=
+    // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
+    // because each li element represents a separate comment The ul element is the container for all comments.
 
     return html += `<li class="list-group-item">${commentDiv}</li>`;
   }, '');
@@ -50,11 +53,8 @@ const deleteComment = e => {
   }).then(() => {
      console.log('removed');
   }).catch(err => {
-    console.error(err)
+    console.log('fetch delete didn\'t succeed' + err)
   })
-    .then(response => response.json())
-    .then(displayComments)
-    .catch(err => console.log('fetch post didn\'t succeed' + err));
 };
 
 getComments();
