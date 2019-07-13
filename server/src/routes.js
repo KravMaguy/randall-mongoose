@@ -32,4 +32,11 @@ const getComments = (req, res) => {
   });
 };
 
-module.exports = { addComment, getComments };
+const deleteComment = (req, res) => {
+  Feedbacks.findByIdAndRemove({_id: req.params.id})
+    .then(function(res){
+    res.send(res)
+    })
+};
+
+module.exports = { addComment, getComments, deleteComment };

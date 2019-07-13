@@ -1,4 +1,5 @@
 const displayComments = ({ comments }) => {
+  console.log(comments.length)
   const commentsElem = document.getElementById("comments");
   commentsElem.innerHTML += comments.reduce((html, comment) => {
     console.log(comment)
@@ -16,7 +17,8 @@ const displayComments = ({ comments }) => {
     //2.and send a success response that you did it,
     //3.ajnd then when you response back in the callback as long as its a success than remove the element from the dom without refreshing the page.
     //4.notify the user that he did or did not delete it..use a modal or something
-    
+    //to accomplish modify index.js routes.js add another endpoint to handle the delete
+
     return html += `<li class="list-group-item">${commentDiv}</li>`;
   }, '');
 };
