@@ -42,5 +42,20 @@ const postComment = e => {
     .catch(err => console.log('fetch post didn\'t succeed' + err));
 };
 
+const deleteComment = e => {
+  e.preventDefault();
+  //const formData = new FormData(document.getElementById("form"));
+  fetch( "/delete" + f.id, {
+    method: 'DELETE'
+  }).then(() => {
+     console.log('removed');
+  }).catch(err => {
+    console.error(err)
+  })
+    .then(response => response.json())
+    .then(displayComments)
+    .catch(err => console.log('fetch post didn\'t succeed' + err));
+};
+
 getComments();
 document.getElementById("submit-btn").addEventListener('click', postComment);
