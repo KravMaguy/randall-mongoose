@@ -22,7 +22,7 @@ const displayComments = ({ comments }) => {
     // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
     // because each li element represents a separate comment The ul element is the container for all comments.
 
-    return html += `<li class="list-group-item">${commentDiv}</li>`;
+    return html += `<li id=${comment._id} class="list-group-item">${commentDiv}</li>`;
   }, '');
 };
 
