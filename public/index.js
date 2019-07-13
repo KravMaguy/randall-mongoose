@@ -60,7 +60,7 @@ const deleteComment = e => {
 getComments();
 document.getElementById("submit-btn").addEventListener('click', postComment);
 var els = document.getElementsByClassName("delete");
+console.log(els)
 Array.prototype.forEach.call(els, function(el) {
-  console.log(el.tagName);
   el.addEventListener('click', deleteComment)
 });
