@@ -22,7 +22,7 @@ const displayComments = ({ comments }) => {
     // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
     // because each li element represents a separate comment The ul element is the container for all comments.
 
-    return html += `<li id=${comment._id} class="list-group-item">${commentDiv}<button type="button" class="btn btn-danger delete">delete</button></li>`;
+    return html += `<li data-id=${comment._id} class="list-group-item">${commentDiv}<button type="button" class="btn btn-danger delete">delete</button></li>`;
   }, '');
 };
 
@@ -45,17 +45,23 @@ const postComment = e => {
     .catch(err => console.log('fetch post didn\'t succeed' + err));
 };
 
-const deleteComment = e => {
-  //e.preventDefault();
+//You will build the fetch url dynamically once a button is clicked and you capture
+//the id of the li element for the corresponding delete button.
+//when you click and the event.target has a class of delete  (this will all be on the server side)
+//that is when you have to get the id of the ul element (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
+
+const deleteComment= () => {
+  
   let target = event.target;
-      if (target.tagName != 'BUTTON') return;
-  fetch( "/delete", {
+      if (target.className != 'delete') return;
+      var id = event.target.getAttribute("data-id")
+  fetch( "delete/"+id, {
     method: 'DELETE'
-  }).then(() => {
-     console.log('removed');
-  }).catch(err => {
-    console.log('fetch delete didn\'t succeed' + err)
-  })
+  }).then(response =>
+    response.json().then(json => {
+      return json;
+    })
+  );
 };
 
 getComments();
