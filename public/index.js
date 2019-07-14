@@ -22,6 +22,21 @@ const displayComments = ({ comments }) => {
     // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
     // because each li element represents a separate comment The ul element is the container for all comments.
 
+    let comments = document.getElementById('comments');
+  comments.onclick = function(event) {
+      let target = event.target;
+      if (target.tagName != 'BUTTON') return;
+      fetch( "/delete" + `${comment._id}`, {
+        method: 'DELETE'
+      }).then(() => {
+         console.log('removed');
+      }).catch(err => {
+        console.log('fetch delete didn\'t succeed' + err)
+      })
+    }
+
+
+
     return html += `<li id=${comment._id} class="list-group-item">${commentDiv}<button type="button" class="btn btn-danger delete">delete</button></li>`;
   }, '');
 };
@@ -45,22 +60,24 @@ const postComment = e => {
     .catch(err => console.log('fetch post didn\'t succeed' + err));
 };
 
-const deleteComment = e => {
-  //e.preventDefault();
-  console.log(this)
-  fetch( "/delete" + `${comment._id}`, {
-    method: 'DELETE'
-  }).then(() => {
-     console.log('removed');
-  }).catch(err => {
-    console.log('fetch delete didn\'t succeed' + err)
-  })
-};
+// const deleteComment = e => {
+//   //e.preventDefault();
+//   console.log(this)
+//   fetch( "/delete" + `${comment._id}`, {
+//     method: 'DELETE'
+//   }).then(() => {
+//      console.log('removed');
+//   }).catch(err => {
+//     console.log('fetch delete didn\'t succeed' + err)
+//   })
+// };
 
 getComments();
 document.getElementById("submit-btn").addEventListener('click', postComment);
-var els = document.getElementsByClassName("delete");
-console.log(els)
-Array.prototype.forEach.call(els, function(el) {
-  el.addEventListener('click', deleteComment)
-});
+// var els = document.getElementsByClassName("delete");
+// console.log(els)
+// Array.prototype.forEach.call(els, function(el) {
+//   el.addEventListener('click', deleteComment)
+// });
+
+
