@@ -2,8 +2,8 @@ const displayComments = ({ comments }) => {
   console.log(comments.length)
   const commentsElem = document.getElementById("comments");
   commentsElem.innerHTML += comments.reduce((html, comment) => {
-    console.log(comment)
-    console.log('  ----------------------  ')
+    //console.log(comment)
+    //console.log('  ----------------------  ')
     const commentDiv = `
       <div>${comment.email}</div>
       <div>${comment.comment}</div>
@@ -22,7 +22,7 @@ const displayComments = ({ comments }) => {
     // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
     // because each li element represents a separate comment The ul element is the container for all comments.
 
-    return html += `<li data-id=${comment._id} class="list-group-item">${commentDiv}<button type="button" class="btn btn-danger delete">delete</button></li>`;
+    return html += `<li id=${comment._id} class="list-group-item">${commentDiv}<button type="button" class="btn btn-danger delete">delete</button></li>`;
   }, '');
 };
 
@@ -48,20 +48,22 @@ const postComment = e => {
 //You will build the fetch url dynamically once a button is clicked and you capture
 //the id of the li element for the corresponding delete button.
 //when you click and the event.target has a class of delete  (this will all be on the server side)
-//that is when you have to get the id of the ul element (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
+//that is when you have to get the id of the ul element
+// (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
 
-const deleteComment= e => {
-  
+const deleteComment= e => {  
   let target = event.target;
-      if (target.className != 'delete') return;
-      var id = event.target.getAttribute("data-id")
-  fetch( "delete/"+id, {
-    method: 'DELETE'
-  }).then(response =>
-    response.json().then(json => {
-      return json;
-    })
-  );
+      if (target.className.indexOf('delete') != -1) {
+        var id = target.parentNode.id;
+        console.log(id);
+        fetch( "delete/"+id, {
+          method: 'DELETE'
+        }).then(response =>
+          response.json().then(json => {
+            return json;
+          })
+        );
+      }
 };
 
 getComments();

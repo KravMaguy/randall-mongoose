@@ -35,8 +35,11 @@ const getComments = (req, res) => {
 const deleteComment = (req, res) => {
   Feedbacks.findByIdAndRemove({_id: req.params.id})
     .then(function(res){
-    res.send(res)
+    res.json({
+     
+      status: 'sucessfully deleted'
     })
+  })
 };
 
 module.exports = { addComment, getComments, deleteComment };
