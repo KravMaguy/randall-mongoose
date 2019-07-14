@@ -72,7 +72,8 @@ const postComment = e => {
 //   })
 // };
 
-getComments();
+getComments(); 
+
 document.getElementById("submit-btn").addEventListener('click', postComment);
 // var els = document.getElementsByClassName("delete");
 // console.log(els)
