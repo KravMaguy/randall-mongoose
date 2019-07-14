@@ -22,8 +22,8 @@ const displayComments = ({ comments }) => {
     // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
     // because each li element represents a separate comment The ul element is the container for all comments.
 
-    let comments = document.getElementById('comments');
-  comments.onclick = function(event) {
+    
+  this.onclick = function(event) {
       let target = event.target;
       if (target.tagName != 'BUTTON') return;
       fetch( "/delete" + `${comment._id}`, {
