@@ -50,7 +50,7 @@ const postComment = e => {
 //when you click and the event.target has a class of delete  (this will all be on the server side)
 //that is when you have to get the id of the ul element (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
 
-const deleteComment= () => {
+const deleteComment= e => {
   
   let target = event.target;
       if (target.className != 'delete') return;
@@ -65,6 +65,5 @@ const deleteComment= () => {
 };
 
 getComments();
-deleteComment()
 document.getElementById("submit-btn").addEventListener('click', postComment);
 document.getElementById("comments").addEventListener('click', deleteComment);
