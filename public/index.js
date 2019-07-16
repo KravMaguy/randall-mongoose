@@ -3,6 +3,10 @@ const removeComment= (id) =>{
   var elem = document.getElementById(`${id}`);
   elem.parentNode.removeChild(elem);
 }
+const clearForm = () => {
+  document.getElementById("form").reset();
+}
+
 const displayComments = ({ comments }) => {
   console.log(comments.length)
   const commentsElem = document.getElementById("comments");
@@ -47,6 +51,7 @@ const postComment = e => {
   })
     .then(response => response.json())
     .then(displayComments)
+    .then(clearForm)
     .catch(err => console.log('fetch post didn\'t succeed' + err));
 };
 
