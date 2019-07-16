@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/feedbacks',{useNewUrlParser: true});
+mongoose.set('useFindAndModify', false);
+
 
 const app = express();
 

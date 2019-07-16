@@ -1,3 +1,8 @@
+const removeComment= (id) =>{
+  console.log('the id is '+id)
+  var elem = document.getElementById(`${id}`);
+  elem.parentNode.removeChild(elem);
+}
 const displayComments = ({ comments }) => {
   console.log(comments.length)
   const commentsElem = document.getElementById("comments");
@@ -51,18 +56,46 @@ const postComment = e => {
 //that is when you have to get the id of the ul element
 // (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
 
+
+
+
 const deleteComment= e => {  
   let target = event.target;
       if (target.className.indexOf('delete') != -1) {
         var id = target.parentNode.id;
         console.log(id);
-        fetch( "delete/"+id, {
-          method: 'DELETE'
-        }).then(response =>
-          response.json().then(json => {
-            return json;
-          })
-        );
+
+      /* this fetch is incorrect If you look at the fetch in the postComment, you will see you have some parentheses 
+      in the wrong location and are missing some also*/
+
+        // fetch( "delete/"+id, {
+        //   method: 'DELETE'
+        // }).then(response =>
+        //   response.json().then(json => {
+        //     return json;
+        //   })
+        // );
+        fetch('/delete/'+id, {
+          method: 'Delete'
+        })
+          .then(response=> response.json())
+         // .then(displayComments)
+          .then(console.log('hi it done'))
+          .then(removeComment(id))
+          .catch(err=> console.log('fetch delete didn\'t succeed'+err))
+
+        //THe below is the fetch to copy
+        /*
+        fetch('/add-comment', {
+          method: 'post',
+          body: new URLSearchParams(formData)
+        })
+          .then(response => response.json())
+          .then(displayComments)
+          .catch(err => console.log('fetch post didn\'t succeed' + err));*/
+
+
+
       }
 };
 

@@ -8,7 +8,8 @@ const addComment = (req, res) => {
   feedback.name = req.body['client-name'];
   feedback.email = req.body['client-email'];
   feedback.comment = req.body.comment;
-  feedback.save(function (err, { name, email, comment }) {
+  feedback._id= req.body._id
+  feedback.save(function (err, { name, email, comment, _id }) {
     if (err) {
       res.send({
         status: 'failure',
@@ -17,7 +18,7 @@ const addComment = (req, res) => {
       return;
     }
     res.json({
-      comments: [{ name, email, comment }],
+      comments: [{ name, email, comment, _id }],
       status: 'success'
     });
   });
@@ -33,12 +34,11 @@ const getComments = (req, res) => {
 };
 
 const deleteComment = (req, res) => {
-  Feedbacks.findByIdAndRemove({_id: req.params.id})
-    .then(function(res){
+  Feedbacks.findByIdAndRemove({_id: req.params.id}, function (error, comments) {
     res.json({
-     
+      comments,
       status: 'sucessfully deleted'
-    })
+    });
   })
 };
 
