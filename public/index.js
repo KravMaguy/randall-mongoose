@@ -84,12 +84,13 @@ const deleteComment= e => {
           method: 'Delete'
         })
           .then(response=> response.json())
-         // .then(displayComments)
-          .then(console.log('hi it done'))
+          .then(json => json.status)
+          //.then(console.log('hi it done'))
+          
 
           //remove comment as long as it returned successfull
           //in here have the logic of the modal 
-
+          .then(status=>console.log(status))
           .then(removeComment(id))
           .catch(err=> console.log('fetch delete didn\'t succeed'+err))
 
