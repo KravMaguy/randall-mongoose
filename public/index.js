@@ -61,7 +61,16 @@ const postComment = e => {
 //that is when you have to get the id of the ul element
 // (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
 
-
+function conditionalchaining(value) {
+  console.log('the value is '+value)
+  if (value=='sucess') {
+      //do something
+     return console.log('true')
+  } else {
+      //do something else
+     return console.log('false')
+  }
+}
 
 
 const deleteComment= e => {  
@@ -90,15 +99,16 @@ const deleteComment= e => {
 
           //remove comment as long as it returned successfull
           //in here have the logic of the modal 
+          .then(conditionalchaining(status))
           //.then(status=>console.log(status))
-          .then(status=> function(status){
-            if (status=='sucess'){
-              console.log('true')
-            } else {
-              console.log('false')
-            }
-          })
-          .then(removeComment(id))
+          // .then(status=> function(status){
+          //   if (status=='sucess'){
+          //     console.log('true')
+          //   } else {
+          //     console.log('false')
+          //   }
+          // })
+          //.then(removeComment(id))
           .catch(err=> console.log('fetch delete didn\'t succeed'+err))
 
         //THe below is the fetch to copy
