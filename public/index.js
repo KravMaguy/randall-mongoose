@@ -1,3 +1,7 @@
+const displayModal= (status) =>{
+  
+}
+
 const removeComment= (id) =>{
   console.log('the id is '+id)
   var elem = document.getElementById(`${id}`);
@@ -89,8 +93,11 @@ const deleteComment= e => {
            .then(function(response) {
              if (response.status=='sucess'){
                console.log('it is')
+               removeComment(id)
+               displayModal(response.status)
              } else {
-               console.log('it is not')
+               console.log('it is fail')
+               displayModal(response.status)
              }
            })
 
