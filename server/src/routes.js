@@ -25,7 +25,7 @@ const addComment = (req, res) => {
 };
 
 const getComments = (req, res) => {
-  Feedbacks.find({}, function (error, comments) {    if (err) {
+  Feedbacks.find({}, function (error, comments) {  
     if (err) {
       res.send({
         status: 'failure',
