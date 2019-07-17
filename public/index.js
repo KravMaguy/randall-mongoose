@@ -86,13 +86,13 @@ const deleteComment= e => {
          
           //.then(console.log('hi it done'))
           .then(response => response.json())
-          // .then(function(response) {
-          //   if (response.status=='sucess'){
-          //     console.log('it is')
-          //   } else {
-          //     console.log('it is not')
-          //   }
-          // })
+           .then(function(response) {
+             if (response.status=='sucess'){
+               console.log('it is')
+             } else {
+               console.log('it is not')
+             }
+           })
 
           //remove comment as long as it returned successfull
           //in here have the logic of the modal 

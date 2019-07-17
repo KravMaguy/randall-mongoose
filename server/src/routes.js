@@ -25,7 +25,7 @@ const addComment = (req, res) => {
 };
 
 const getComments = (req, res) => {
-  Feedbacks.find({}, function (error, comments) {  
+  Feedbacks.find({}, function (err, comments) {  
     if (err) {
       res.send({
         status: 'failure',
@@ -42,7 +42,14 @@ const getComments = (req, res) => {
 
 
 const deleteComment = (req, res) => {
-  Feedbacks.findByIdAndRemove({_id: req.params.id}, function (error, comments) {
+  Feedbacks.findByIdAndRemove({_id: req.params.id}, function (err, comments) {
+    if (err) {
+      res.send({
+        status: 'failure',
+        error: err
+      });
+      return;
+    }
     res.json({
       comments,
       status: 'sucess'
