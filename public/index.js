@@ -1,5 +1,11 @@
 const displayModal= (status) =>{
   var modal = document.querySelector('.modal');
+  var modaltitle= document.getElementById("modaltitle")
+  modaltitle.innerHTML=status
+ function setModalStatus(){
+  var iframe= document.getElementById("iframe")
+  status=='sucess'?iframe.src='https://giphy.com/embed/l52CGyJ4LZPa0':iframe.src='https://giphy.com/embed/EXHHMS9caoxAA'
+ } 
 function attachModalListeners(modalElm) {
   modalElm.querySelector('.close_modal').addEventListener('click', toggleModal);
   modalElm.querySelector('.overlay').addEventListener('click', toggleModal);
@@ -12,17 +18,13 @@ function detachModalListeners(modalElm) {
 
 function toggleModal() {
   var currentState = modal.style.display;
-
-  // If modal is visible, hide it. Else, display it.
-  if (currentState === 'none') {
-    modal.style.display = 'block';
-    attachModalListeners(modal);
-  } else {
-    modal.style.display = 'none';
-    detachModalListeners(modal);  
-  }
+  currentState === 'none'?(
+    modal.style.display = 'block',
+    attachModalListeners(modal)):(modal.style.display = 'none',
+    detachModalListeners(modal))
 }
  toggleModal();
+ setModalStatus();
 }
 
 const removeComment= (id) =>{
