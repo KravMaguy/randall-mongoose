@@ -1,66 +1,58 @@
-const displayModal= (status) =>{
-  var modal = document.querySelector('.modal');
-  var modaltitle= document.getElementById("modaltitle")
-  modaltitle.innerHTML=status
- function setModalStatus(){
-  var iframe= document.getElementById("iframe")
-  status=='sucess'?iframe.src='https://giphy.com/embed/l52CGyJ4LZPa0':iframe.src='https://giphy.com/embed/EXHHMS9caoxAA'
- } 
-function attachModalListeners(modalElm) {
-  modalElm.querySelector('.close_modal').addEventListener('click', toggleModal);
-  modalElm.querySelector('.overlay').addEventListener('click', toggleModal);
-}
+const modal = (() => {
+  const modal = document.querySelector(".modal");
+  const iframe = document.getElementById("iframe");
+  const modaltitle = document.getElementById("modaltitle");
 
-function detachModalListeners(modalElm) {
-  modalElm.querySelector('.close_modal').removeEventListener('click', toggleModal);
-  modalElm.querySelector('.overlay').removeEventListener('click', toggleModal);
-}
+  const toggleModal = function() {
+    const currentState = modal.style.display;
+    modal.style.display = currentState === 'none' ? 'block' : 'none';
+  };
 
-function toggleModal() {
-  var currentState = modal.style.display;
-  currentState === 'none'?(
-    modal.style.display = 'block',
-    attachModalListeners(modal)):(modal.style.display = 'none',
-    detachModalListeners(modal))
-}
- toggleModal();
- setModalStatus();
-}
+  const attachListeners = () => {
+    modal.querySelector('.close_modal').addEventListener('click', toggleModal);
+    modal.querySelector('.overlay').addEventListener('click', toggleModal);
+  };
 
-const removeComment= (id) =>{
-  console.log('the id is '+id)
-  var elem = document.getElementById(`${id}`);
+  const displayModal = (status) => {
+    modaltitle.innerHTML = status;
+    const setModalStatus = () => {
+      const successVideo = 'https://giphy.com/embed/l52CGyJ4LZPa0';
+      const failureVideo = 'https://giphy.com/embed/EXHHMS9caoxAA';
+      iframe.src = status === 'success' ? successVideo : failureVideo;
+    };
+
+    toggleModal();
+    setModalStatus();
+  }
+
+  attachListeners();
+
+  return {
+    displayModal  
+  }
+})();
+
+const removeComment = (id) => {
+  const elem = document.getElementById(`${id}`);
   elem.parentNode.removeChild(elem);
-}
+};
+
 const clearForm = () => {
   document.getElementById("form").reset();
-}
+};
 
 const displayComments = ({ comments }) => {
-  console.log(comments.length)
   const commentsElem = document.getElementById("comments");
   commentsElem.innerHTML += comments.reduce((html, comment) => {
-    //console.log(comment)
-    //console.log('  ----------------------  ')
     const commentDiv = `
       <div>${comment.email}</div>
       <div>${comment.comment}</div>
     `;
-    //the ul element will now have an id equal to what I passed back as part of the response
-    //and have a delete button with a class of delete, attach a click event to the button, so that 
-    //when you click and the event.target has a class of delete  (this will all be on the server side)
-    //that is when you have to get the id of the ul element (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
-    //get the id from the parent, do two things
-    //1. use fetch to send the id in a delete request to get rid of it in the database, 
-    //2.and send a success response that you did it,
-    //3.ajnd then when you response back in the callback as long as its a success than remove the element from the dom without refreshing the page.
-    //4.notify the user that he did or did not delete it..use a modal or something
-    //to accomplish modify index.js routes.js add another endpoint to handle the delete
-    // edit: it was later said=
-    // I need to correct something you wrote down in your notes earlier. I originally said the id should be put on the li element and that is still true, 
-    // because each li element represents a separate comment The ul element is the container for all comments.
-
-    return html += `<li id=${comment._id} class="list-group-item">${commentDiv}<button type="button" class="btn btn-danger delete">delete</button></li>`;
+    return html += `
+      <li id=${comment._id} class="list-group-item">${commentDiv}
+        <button type="button" class="btn btn-danger delete">delete</button>
+      </li>
+    `;
   }, '');
 };
 
@@ -68,7 +60,7 @@ const getComments = () => {
   fetch('/comments')
     .then(response => response.json())
     .then(displayComments)
-    .catch(err => console.log('fetch get didn\'t succeed' + err));
+    .catch(err => console.log('fetch get didn\'t succeed\n' + err));
 };
 
 const postComment = e => {
@@ -79,80 +71,32 @@ const postComment = e => {
     body: new URLSearchParams(formData)
   })
     .then(response => response.json())
-    .then(displayComments)
-    .then(clearForm)
-    .catch(err => console.log('fetch post didn\'t succeed' + err));
+    .then(comments => {
+      displayComments(comments);
+      clearForm();
+    })
+    .catch(err => console.log('fetch post didn\'t succeed\n' + err));
 };
 
-//You will build the fetch url dynamically once a button is clicked and you capture
-//the id of the li element for the corresponding delete button.
-//when you click and the event.target has a class of delete  (this will all be on the server side)
-//that is when you have to get the id of the ul element
-// (you will have to go up the chain of ancestors to find look into findthenextparent() or something)
-
-
-
-
-const deleteComment= e => {  
+const deleteComment = e => {
   let target = event.target;
-      if (target.className.indexOf('delete') != -1) {
-        var id = target.parentNode.id;
-        console.log(id);
-
-      /* this fetch is incorrect If you look at the fetch in the postComment, you will see you have some parentheses 
-      in the wrong location and are missing some also*/
-
-        // fetch( "delete/"+id, {
-        //   method: 'DELETE'
-        // }).then(response =>
-        //   response.json().then(json => {
-        //     return json;
-        //   })
-        // );
-        fetch('/delete/'+id, {
-          method: 'Delete'
-        })
-         
-          //.then(console.log('hi it done'))
-          .then(response => response.json())
-           .then(function(response) {
-              response.status=='sucess'?(
-               console.log('it is'),
-               removeComment(id),
-               displayModal(response.status)):
-               (console.log('it is fail'),
-               displayModal(response.status))  
-           })
-
-          //remove comment as long as it returned successfull
-          //in here have the logic of the modal 
-          
-          //.then(conditionalchaining(status))
-
-          //.then(status=>console.log(status))
-          // .then(status=> function(status){
-          //   if (status=='sucess'){
-          //     console.log('true')
-          //   } else {
-          //     console.log('false')
-          //   }
-          // })
-          //.then(removeComment(id))
-          .catch(err=> console.log('fetch delete didn\'t succeed'+err))
-
-        //THe below is the fetch to copy
-        /*
-        fetch('/add-comment', {
-          method: 'post',
-          body: new URLSearchParams(formData)
-        })
-          .then(response => response.json())
-          .then(displayComments)
-          .catch(err => console.log('fetch post didn\'t succeed' + err));*/
-
-
-
-      }
+  if (target.className.indexOf('delete') != -1) {
+    const id = target.parentNode.id;
+    fetch('/delete/' + id, {
+      method: 'Delete'
+    })
+      .then(response => response.json())
+      .then(function (response) {
+        if (response.status === 'success') {
+          removeComment(id);
+        }
+        modal.displayModal(response.status);
+      })
+      .catch(err => {
+        console.log('fetch delete didn\'t succeed\n' + err);
+        modal.displayModal('failure');
+      });
+  }
 };
 
 getComments();
