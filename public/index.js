@@ -1,5 +1,28 @@
 const displayModal= (status) =>{
-  
+  var modal = document.querySelector('.modal');
+function attachModalListeners(modalElm) {
+  modalElm.querySelector('.close_modal').addEventListener('click', toggleModal);
+  modalElm.querySelector('.overlay').addEventListener('click', toggleModal);
+}
+
+function detachModalListeners(modalElm) {
+  modalElm.querySelector('.close_modal').removeEventListener('click', toggleModal);
+  modalElm.querySelector('.overlay').removeEventListener('click', toggleModal);
+}
+
+function toggleModal() {
+  var currentState = modal.style.display;
+
+  // If modal is visible, hide it. Else, display it.
+  if (currentState === 'none') {
+    modal.style.display = 'block';
+    attachModalListeners(modal);
+  } else {
+    modal.style.display = 'none';
+    detachModalListeners(modal);  
+  }
+}
+ toggleModal();
 }
 
 const removeComment= (id) =>{
@@ -91,14 +114,12 @@ const deleteComment= e => {
           //.then(console.log('hi it done'))
           .then(response => response.json())
            .then(function(response) {
-             if (response.status=='sucess'){
-               console.log('it is')
-               removeComment(id)
-               displayModal(response.status)
-             } else {
-               console.log('it is fail')
-               displayModal(response.status)
-             }
+              response.status=='sucess'?(
+               console.log('it is'),
+               removeComment(id),
+               displayModal(response.status)):
+               (console.log('it is fail'),
+               displayModal(response.status))  
            })
 
           //remove comment as long as it returned successfull
