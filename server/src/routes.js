@@ -35,7 +35,7 @@ const getComments = (req, res) => {
     }
     res.json({
       comments,
-      status: 'sucess'
+      status: 'success'
     });
   });
 };
@@ -52,7 +52,7 @@ const deleteComment = (req, res) => {
     }
     res.json({
       comments,
-      status: 'sucess'
+      status: 'success'
       //in the fetch you have to make sure to see that the staus was 
       // really a success and then delete it. 
       // handle the error argument in case of a connection error
