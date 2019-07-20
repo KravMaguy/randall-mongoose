@@ -9,7 +9,7 @@ mongoose.set('useFindAndModify', false);
 
 const app = express();
 
-const { addComment, getComments, deleteComment } = require('./src/routes.js');
+const { addComment, getComments, deleteComment, updateComment } = require('./src/routes.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, '../public')));
@@ -17,5 +17,6 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 app.post('/add-comment', addComment);
 app.get('/comments',  getComments);
 app.delete('/delete/:id', deleteComment);
+app.put('/update/:id', updateComment);
 
 app.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0' );
