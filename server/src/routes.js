@@ -62,4 +62,21 @@ const deleteComment = (req, res) => {
   })
 };
 
+const updateComment = (req, res) => {
+  const userInput= req.body;
+  findOneAndUpdate({_id: req.params.id},{$set: {name: userInput['client-name'], comment: userInput.comment}},{new: true}, function(err, data){
+    if (err) {
+      res.send({
+        status: 'failure',
+        error: err
+      });
+      return;
+    }
+    res.json({
+      comments,
+      status: 'success'
+    });
+  })
+};
+
 module.exports = { addComment, getComments, deleteComment };
