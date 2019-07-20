@@ -22,7 +22,7 @@ h2 {
     outline: 0;
   }
   
-  .modal {
+  .editmodal .modal {
     position: fixed;
     left: 0;
     top: 0;
@@ -31,7 +31,7 @@ h2 {
     z-index: 990;
   }
   
-  .modal .overlay {
+  .editmodal .editoverlay .modal .overlay {
     position: absolute;
     left: 0;
     top: 0;
@@ -42,7 +42,7 @@ h2 {
     
   }
   
-  .modal .modal_content {
+  .editmodal .modal .edit_modal_content .modal_content {
     z-index: 999;
     position: absolute;
     top: 50%;
@@ -58,18 +58,18 @@ h2 {
     width: 520px; /* This just a default width */
   }
   
-  .modal .modal_content > h2 {
+  .editmodal .edit_modal_content .modal .modal_content > h2 {
     font-size: 28px;
     font-weight: 200;
     margin: 20px 0 40px;
     text-align: center;
   }
   
-  .modal .modal_content .buttons_wrapper {
+  .editmodal .edit_modal_content .modal .modal_content .buttons_wrapper {
     padding: 20px;
   }
   
-  .modal .close_modal {
+  .editmodal .modal .close_modal {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -81,6 +81,6 @@ h2 {
     transition: opacity 0.2s ease;
   }
   
-  .modal .close_modal:hover {
+  .editmodal .modal .close_modal:hover {
     opacity: 0.9;
   }

@@ -100,25 +100,26 @@ const deleteComment = e => {
   }
 };
 
+//in here first show the modal with the form and then update it
 const updateComment = e => {
   let target = event.target;
   if (target.className.indexOf('update') != -1) {
     const id = target.parentNode.id;
-    fetch('/update/' + id, {
-      method: 'Put'
+    // fetch('/update/' + id, {
+    //   method: 'Put'
       
-    })
-      .then(response => response.json())
-      .then(function (response) {
-        if (response.status === 'success') {
-         // removeComment(id);
-        }
-       // modal.displayModal(response.status);
-      })
-      .catch(err => {
-        console.log('fetch update didn\'t succeed\n' + err);
-        //modal.displayModal('failure');
-      });
+    // })
+    //   .then(response => response.json())
+    //   .then(function (response) {
+    //     if (response.status === 'success') {
+    //      // removeComment(id);
+    //     }
+    //    // modal.displayModal(response.status);
+    //   })
+    //   .catch(err => {
+    //     console.log('fetch update didn\'t succeed\n' + err);
+    //     //modal.displayModal('failure');
+    //   });
   }
 };
 

@@ -17,8 +17,31 @@
 
     <div class="row h-100 justify-content-center align-items-center">
 
+              <!--update form modal here -->
+              <div class="editmodal" style="display: none">
+                  <div class="editoverlay"></div>
+                  <div class="edit_modal_content">
+                    <!-- Dynamic Section -->
+                    <h2 id="editmodaltitle"></h2>
+                    <form id="editcommentForm" method="put" action="/update">
+                        <div class="form-group">
+                          <label>Name</label><input type="text" class='form-control' name="client-name" placeholder="Enter name" required>
+                        </div>
+                        <div class="form-group">
+                          <label>Comments</label><textarea class="form-control" name="comment" placeholder="Enter Comments "rows="3"></textarea>
+                        </div>
+                        
+                        <button id="submit-btn" type="submit" class="btn btn-primary btn-lg btn-block">Submit Data</button>
+                      </form>
+                    <!-- End of Dynamic Section -->
+                    <button title="Close" class="close_modal">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
 
-      				<!-- modal here -->
+
+      				<!--delete confirm modal here -->
       <div class="modal" style="display: none">
         <div class="overlay"></div>
         <div class="modal_content">
