@@ -69,7 +69,7 @@ h2 {
     padding: 20px;
   }
   
-  .editmodal .modal .close_modal {
+  .editmodal .modal .editclose_modal .close_modal {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -81,6 +81,6 @@ h2 {
     transition: opacity 0.2s ease;
   }
   
-  .editmodal .modal .close_modal:hover {
+  .editmodal .modal .editclose_modal .close_modal:hover {
     opacity: 0.9;
   }
