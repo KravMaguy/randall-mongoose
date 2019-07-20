@@ -106,6 +106,7 @@ const updateComment = e => {
     const id = target.parentNode.id;
     fetch('/update/' + id, {
       method: 'Put'
+      
     })
       .then(response => response.json())
       .then(function (response) {

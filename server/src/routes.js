@@ -79,4 +79,4 @@ const updateComment = (req, res) => {
   })
 };
 
-module.exports = { addComment, getComments, deleteComment };
+module.exports = { addComment, getComments, deleteComment, updateComment };
