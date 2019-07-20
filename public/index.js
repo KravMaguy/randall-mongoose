@@ -1,28 +1,4 @@
 
-const editmodal=(id)=>{
-  console.log('editmodal was run')
-  const editmodal = document.querySelector(".editmodal");
-  function attachModalListeners(modalElm) {
-    modalElm.querySelector('.editclose_modal').addEventListener('click', toggleModal);
-    modalElm.querySelector('.editoverlay').addEventListener('click', toggleModal);
-  }
-  function detachModalListeners(modalElm) {
-    modalElm.querySelector('.editclose_modal').removeEventListener('click', toggleModal);
-    modalElm.querySelector('.editoverlay').removeEventListener('click', toggleModal);
-  }
-  function toggleModal() {
-    const currentState = editmodal.style.display;
-    currentState === 'none'?(
-      editmodal.style.display = 'block',
-      attachModalListeners(editmodal)):(editmodal.style.display = 'none',
-      detachModalListeners(editmodal))
-  }
-  toggleModal();
-}
-
-
-
-//above is the modal code for the edit functionality. 
 
 const modal = (() => {
   const modal = document.querySelector(".modal");
@@ -131,8 +107,6 @@ const updateComment = e => {
   let target = event.target;
   if (target.className.indexOf('update') != -1) {
     const id = target.parentNode.id;
-    editmodal(id);
-
     // fetch('/update/' + id, {
     //   method: 'Put'
       
