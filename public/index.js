@@ -51,6 +51,7 @@ const displayComments = ({ comments }) => {
     return html += `
       <li id=${comment._id} class="list-group-item">${commentDiv}
         <button type="button" class="btn btn-danger delete">delete</button>
+        <button type="button" class="btn btn-info update">update</button>
       </li>
     `;
   }, '');
@@ -99,6 +100,28 @@ const deleteComment = e => {
   }
 };
 
+const updateComment = e => {
+  let target = event.target;
+  if (target.className.indexOf('update') != -1) {
+    const id = target.parentNode.id;
+    fetch('/update/' + id, {
+      method: 'Put'
+    })
+      .then(response => response.json())
+      .then(function (response) {
+        if (response.status === 'success') {
+         // removeComment(id);
+        }
+       // modal.displayModal(response.status);
+      })
+      .catch(err => {
+        console.log('fetch update didn\'t succeed\n' + err);
+        //modal.displayModal('failure');
+      });
+  }
+};
+
 getComments();
 document.getElementById("submit-btn").addEventListener('click', postComment);
 document.getElementById("comments").addEventListener('click', deleteComment);
+document.getElementById("comments").addEventListener('click', updateComment);
