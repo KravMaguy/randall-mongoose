@@ -104,9 +104,14 @@ const deleteComment = e => {
 
 //in here first show the modal with the form and then update it
 const updateComment = e => {
+ 
   let target = event.target;
+  console.log(target)
+  console.log(target.className.indexOf('update'));
   if (target.className.indexOf('update') != -1) {
+    console.log('inside update')
     const id = target.parentNode.id;
+    
     // fetch('/update/' + id, {
     //   method: 'Put'
       
