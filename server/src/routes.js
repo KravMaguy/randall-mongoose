@@ -65,6 +65,7 @@ const deleteComment = (req, res) => {
 const updateComment = (req, res) => {
   const userInput= req.body;
   console.log(userInput);
+  console.log(req.params)
   console.log('***********************************')
   findOneAndUpdate({_id: req.params.id},{$set: {name: userInput['client-name'], comment: userInput.comment}},{new: true}, function(err, data){
     if (err) {
