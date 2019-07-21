@@ -1,4 +1,29 @@
-
+const displayUpdateModal= ()=>{
+  var modal = document.querySelector('.editmodal');
+  function attachModalListeners(modalElm) {
+    modalElm.querySelector('.editclose_modal').addEventListener('click', toggleModal);
+    modalElm.querySelector('.editoverlay').addEventListener('click', toggleModal);
+  }
+  
+  function detachModalListeners(modalElm) {
+    modalElm.querySelector('.editclose_modal').removeEventListener('click', toggleModal);
+    modalElm.querySelector('.editoverlay').removeEventListener('click', toggleModal);
+  }
+  
+  function toggleModal() {
+    var currentState = modal.style.display;
+  
+    // If modal is visible, hide it. Else, display it.
+    if (currentState === 'none') {
+      modal.style.display = 'block';
+      attachModalListeners(modal);
+    } else {
+      modal.style.display = 'none';
+      detachModalListeners(modal);  
+    }
+  }
+   toggleModal();
+}
 
 const modal = (() => {
   const modal = document.querySelector(".modal");
@@ -111,7 +136,7 @@ const updateComment = e => {
   if (target.className.indexOf('update') != -1) {
     console.log('inside update')
     const id = target.parentNode.id;
-    
+    displayUpdateModal();
     // fetch('/update/' + id, {
     //   method: 'Put'
       
