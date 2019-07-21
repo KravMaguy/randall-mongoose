@@ -3,16 +3,19 @@ const displayUpdateModal= ()=>{
   function attachModalListeners(modalElm) {
     modalElm.querySelector('.editclose_modal').addEventListener('click', toggleModal);
     modalElm.querySelector('.editoverlay').addEventListener('click', toggleModal);
+    document.getElementById('edit-btn').addEventListener('click', EditComment);
+
   }
   
   function detachModalListeners(modalElm) {
     modalElm.querySelector('.editclose_modal').removeEventListener('click', toggleModal);
     modalElm.querySelector('.editoverlay').removeEventListener('click', toggleModal);
+    document.getElementById('edit-btn').removeEventListener('click', EditComment);
+
   }
-  
+
   function toggleModal() {
     var currentState = modal.style.display;
-  
     // If modal is visible, hide it. Else, display it.
     if (currentState === 'none') {
       modal.style.display = 'block';
@@ -22,8 +25,15 @@ const displayUpdateModal= ()=>{
       detachModalListeners(modal);  
     }
   }
+  function EditComment(e){
+    e.preventDefault();
+    console.log('clicked to submit an edit')
+  }
+
+
    toggleModal();
 }
+
 
 const modal = (() => {
   const modal = document.querySelector(".modal");
