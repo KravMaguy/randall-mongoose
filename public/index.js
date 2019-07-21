@@ -1,4 +1,5 @@
-const displayUpdateModal= ()=>{
+const displayUpdateModal= id =>{
+  let newId=id;
   var modal = document.querySelector('.editmodal');
   function attachModalListeners(modalElm) {
     modalElm.querySelector('.editclose_modal').addEventListener('click', toggleModal);
@@ -27,7 +28,22 @@ const displayUpdateModal= ()=>{
   }
   function EditComment(e){
     e.preventDefault();
-    console.log('clicked to submit an edit')
+    console.log('inside EditCOmment the id is :'+newId)
+        fetch('/update/' + newId, {
+      method: 'Put'    
+    })
+      .then(response => response.json())
+      .then(function (response) {
+        if (response.status === 'success') {
+         // removeComment(id);
+         console.log(response)
+        }
+       // modal.displayModal(response.status);
+      })
+      .catch(err => {
+        console.log('fetch update didn\'t succeed\n' + err);
+        //modal.displayModal('failure');
+      });
   }
 
 
@@ -146,22 +162,8 @@ const updateComment = e => {
   if (target.className.indexOf('update') != -1) {
     console.log('inside update')
     const id = target.parentNode.id;
-    displayUpdateModal();
-    // fetch('/update/' + id, {
-    //   method: 'Put'
-      
-    // })
-    //   .then(response => response.json())
-    //   .then(function (response) {
-    //     if (response.status === 'success') {
-    //      // removeComment(id);
-    //     }
-    //    // modal.displayModal(response.status);
-    //   })
-    //   .catch(err => {
-    //     console.log('fetch update didn\'t succeed\n' + err);
-    //     //modal.displayModal('failure');
-    //   });
+    displayUpdateModal(id);
+    
   }
 };
 
