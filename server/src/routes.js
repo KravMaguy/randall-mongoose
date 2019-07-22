@@ -4,6 +4,7 @@ const { feedbackSchema } = require('./model.js');
 const Feedbacks = mongoose.model('feedbacks', feedbackSchema);
 
 const addComment = (req, res) => {
+  //console.log(req.body)
   const feedback = new Feedbacks;
   feedback.name = req.body['client-name'];
   feedback.email = req.body['client-email'];
@@ -64,7 +65,7 @@ const deleteComment = (req, res) => {
 
 const updateComment = (req, res) => {
   const userInput= req.body;
-  console.log(req.body);
+  console.log(userInput);
   console.log(req.params)
   console.log('***********************************')
   Feedbacks.findOneAndUpdate({_id: req.params.id},{$set: {name: userInput['client-name'], comment: userInput.comment}},{new: true}, function(err, data){

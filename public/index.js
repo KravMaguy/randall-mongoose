@@ -27,18 +27,21 @@ const displayUpdateModal= id =>{
     }
   }
   function EditComment(e){
-    const input= document.getElementById('editInputs')
-    console.log('te value inside of the input : '+input.value)
+    const formData = new FormData(document.getElementById("editcommentForm"));
     e.preventDefault();
+    console.log('inside formdata is :')
+    console.log(formData)
+
     console.log('inside EditCOmment the id is :'+newId)
         fetch('/update/' + newId, {
       method: 'Put',
-       headers : {
-         "Content-Type" : "application/json; charset=utf-8" 
-     },   
-     body : JSON.stringify(input.value)
-    })
+    //    headers : {
+    //      "Content-Type" : "application/json; charset=utf-8" 
+    //  },   
+    body : new URLSearchParams(formData)
+  })
        .then(response => response.json())
+
       .then(function (response) {
         if (response.status === 'success') {
          // removeComment(id);
