@@ -67,7 +67,7 @@ const updateComment = (req, res) => {
   console.log(userInput);
   console.log(req.params)
   console.log('***********************************')
-  findOneAndUpdate({_id: req.params.id},{$set: {name: userInput['client-name'], comment: userInput.comment}},{new: true}, function(err, data){
+  Feedbacks.findOneAndUpdate({_id: req.params.id},{$set: {name: userInput['client-name'], comment: userInput.comment}},{new: true}, function(err, data){
     if (err) {
       res.send({
         status: 'failure',
@@ -76,7 +76,7 @@ const updateComment = (req, res) => {
       return;
     }
     res.json({
-      comments,
+      data,
       status: 'success'
     });
   })

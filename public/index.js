@@ -28,16 +28,17 @@ const displayUpdateModal= id =>{
   }
   function EditComment(e){
     const input= document.getElementById('editInputs')
+    console.log('te value inside of the input : '+input.value)
     e.preventDefault();
     console.log('inside EditCOmment the id is :'+newId)
         fetch('/update/' + newId, {
       method: 'Put',
        headers : {
-        "Content-Type" : "application/json; charset=utf-8" 
-    },   
-    body : JSON.stringify({todo : input.value()})
+         "Content-Type" : "application/json; charset=utf-8" 
+     },   
+     body : JSON.stringify(input.value)
     })
-      .then(response => response.json())
+       .then(response => response.json())
       .then(function (response) {
         if (response.status === 'success') {
          // removeComment(id);
