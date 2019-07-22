@@ -27,8 +27,10 @@ const displayUpdateModal= id =>{
     }
   }
   function EditComment(e){
-    const input= document.getElementById('editInputs')
-    console.log('te value inside of the input : '+input.value)
+    //const input= document.getElementById('editInputs')
+    const formData = new FormData(document.getElementById("editcommentForm"));
+
+    //console.log('te value inside of the input : '+input.value)
     e.preventDefault();
     console.log('inside EditCOmment the id is :'+newId)
         fetch('/update/' + newId, {
@@ -36,7 +38,7 @@ const displayUpdateModal= id =>{
        headers : {
          "Content-Type" : "application/json; charset=utf-8" 
      },   
-     body : JSON.stringify(input.value)
+     body : new URLSearchParams(formData)
     })
        .then(response => response.json())
       .then(function (response) {
