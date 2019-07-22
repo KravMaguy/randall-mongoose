@@ -10,8 +10,8 @@ mongoose.set('useFindAndModify', false);
 const app = express();
 
 const { addComment, getComments, deleteComment, updateComment } = require('./src/routes.js');
-
 app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 app.post('/add-comment', addComment);
