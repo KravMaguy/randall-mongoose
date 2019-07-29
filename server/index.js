@@ -13,6 +13,9 @@ const { addComment, getComments, deleteComment, updateComment } = require('./src
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '../public')));
+app.get('/favicon.ico', (req, res, next)=> {
+    return res.sendStatus(204);
+});
 
 app.post('/add-comment', addComment);
 app.get('/comments',  getComments);
