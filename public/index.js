@@ -120,11 +120,11 @@ const displayUpdateModal= id =>{
          toggleModal()
          updateDomComment(newId, response.data.comment)
          tSuccess.open();
-         setTimeout(tSuccess.close, 3000);
-  
+         setTimeout(tSuccess.close, 3000);  
           //let commentVal=document.getElementById('editInputs').value   
         }
-
+        tError.open();
+        setTimeout(tError.close, 3000);  
 
       })
       .catch(err => {
