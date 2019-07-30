@@ -160,3 +160,55 @@ h2 {
 .editmodal .editclose_modal:hover {
   opacity: 0.9;
 }
+
+/* vanillaToast */
+
+.area-toast {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+}
+
+.snap-now-content {
+  margin: 5px;
+  height: 50px;
+  min-width: 250px;
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(300px);
+  opacity: 0;
+  transition: all 200ms ease;
+  font-family: var(--fontFamily);
+  font-weight: 600;
+  color: #FFF;
+  padding: 0 10px;
+}
+
+.snap-now-content > i {
+  width: 15px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.snap-now-content--state-open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.snap-now-content--success {
+  background-color: #26A65B;
+}
+
+.snap-now-content--error {
+  background-color: #C0392B;
+}
+
+/* to make room for vanilla toast */
+ul#comments.list-group{
+  margin-bottom: 15vh;
+}

@@ -1,4 +1,76 @@
-const $divContent = document.createElement('div');
+(function(window) {
+
+  const $body = document.querySelector('body');
+  const $areaToast = document.createElement('div');
+  $areaToast.classList.add('area-toast');
+  $body.appendChild($areaToast);
+
+  function Options() {
+    const hasIcon = (content, icon) => {
+      const $icon = typeof icon !== 'undefined' ? document.createElement('i') : false;
+      $icon ? $icon.className = icon : false;
+      $icon ? content.appendChild($icon) : false;
+    }
+
+    const hasTimeout = (content, time) => {
+      setTimeout(() => {
+        content.classList.remove('snap-now-content--state-open');
+        content.addEventListener('webkitTransitionEnd', () => content.remove());
+      }, time);
+    }
+
+    this.hasIcon = hasIcon;
+    this.hasTimeout = hasTimeout;
+  }
+
+  function getSnap(config, callback) {
+    const options = new Options();
+    const $divContent = document.createElement('div');
+    const classDefault = 'snap-now-content';
+
+    config.icon ? options.hasIcon($divContent, config.icon) : false;
+    config.timeout ? options.hasTimeout($divContent, config.timeout) : false;
+
+    $divContent.classList.add(classDefault);
+    $divContent.classList.add(classDefault + '--' + config.type);
+    $divContent.innerHTML += config.text;
+
+    $areaToast.appendChild($divContent);
+    callback($divContent);
+  }
+
+  function Snap(options) {
+
+    const open = () => {
+      getSnap(options, $divContent => this.content = $divContent);
+      this.content.classList.add('snap-now-content--state-open');
+    };
+
+    const close = () => {
+      this.content.classList.remove('snap-now-content--state-open');
+      this.content.addEventListener('webkitTransitionEnd', () => this.content.remove());
+    };
+
+    this.open = open;
+    this.close = close;
+  }
+
+  window.Snap = Snap;
+  window.Options = Options;
+}(window));
+
+
+const tSuccess = new Snap({
+  type: 'success',
+  text: 'Gabriel, seu cadastro foi atualizado com sucesso!',
+  icon: 'fa fa-check'
+});
+
+const tError = new Snap({
+  type: 'error',
+  text: 'Cadastro não foi realizado!',
+  icon: 'fa fa-ban'
+});
 
 const displayUpdateModal= id =>{
   let newId=id;
@@ -47,19 +119,19 @@ const displayUpdateModal= id =>{
          console.log(response)
          toggleModal()
          updateDomComment(newId, response.data.comment)
+         tSuccess.open();
+         setTimeout(tSuccess.close, 3000);
   
-          //let commentVal=document.getElementById('editInputs').value
-         
+          //let commentVal=document.getElementById('editInputs').value   
         }
-       // modal.displayModal(response.status);
+
+
       })
       .catch(err => {
         console.log('fetch update didn\'t succeed\n' + err);
         //modal.displayModal('failure');
       });
   }
-
-
    toggleModal();
 }
 
@@ -107,7 +179,6 @@ const updateDomComment = (id, response) => {
   //document.getElementById('editInputs').value.innerHTML=updated;
   console.log('response :')
   console.log(response)
-
   //var variable = document.getElementById('editInputs').value;
   //document.getElementById('alert').innerHTML = 'The user input is: ' + variable;
   elem.childNodes[3].innerHTML=response;
