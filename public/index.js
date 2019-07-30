@@ -1,3 +1,5 @@
+const $divContent = document.createElement('div');
+
 const displayUpdateModal= id =>{
   let newId=id;
   var modal = document.querySelector('.editmodal');
@@ -29,9 +31,6 @@ const displayUpdateModal= id =>{
   function EditComment(e){
     const formData = new FormData(document.getElementById("editcommentForm"));
     e.preventDefault();
-    console.log('inside formdata is :')
-    console.log(formData)
-
     console.log('inside EditCOmment the id is :'+newId)
         fetch('/update/' + newId, {
       method: 'Put',
@@ -46,6 +45,11 @@ const displayUpdateModal= id =>{
         if (response.status === 'success') {
          // removeComment(id);
          console.log(response)
+         toggleModal()
+         updateDomComment(newId, response.data.comment)
+  
+          //let commentVal=document.getElementById('editInputs').value
+         
         }
        // modal.displayModal(response.status);
       })
@@ -93,6 +97,21 @@ const modal = (() => {
     displayModal  
   }
 })();
+
+const updateDomComment = (id, response) => {
+  const elem = document.getElementById(`${id}`);
+  console.log('updated :')
+
+  let updated= elem.childNodes[3].innerHTML;
+  console.log(updated)
+  //document.getElementById('editInputs').value.innerHTML=updated;
+  console.log('response :')
+  console.log(response)
+
+  //var variable = document.getElementById('editInputs').value;
+  //document.getElementById('alert').innerHTML = 'The user input is: ' + variable;
+  elem.childNodes[3].innerHTML=response;
+}
 
 const removeComment = (id) => {
   const elem = document.getElementById(`${id}`);
