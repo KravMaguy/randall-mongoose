@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<meta charset="UTF-8">
+<title>Client Data</title>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="row h-100 justify-content-center align-items-center">
+
+
+
+              <!--update form modal here -->
+              <div class="editmodal" style="display: none">
+                  <div class="editoverlay"></div>
+                  <div class="edit_modal_content">
+                    <!-- Dynamic Section -->
+                    <h2 id="editmodaltitle"></h2>
+                    <form id="editcommentForm" method="put" action="/update" >
+                        <div class="form-group">
+                          <label>Name</label><input type="text" class='form-control' name="client-name" placeholder="Enter name" required>
+                        </div>
+                        <div class="form-group">
+                          <label>Comments</label><textarea id="editInputs" class="form-control" name="comment" placeholder="Enter Comments "rows="3"></textarea>
+                        </div>
+                        
+                        <button id="edit-btn" type="submit" class="btn btn-primary btn-lg btn-block">Submit Data</button>
+                      </form>
+                    <!-- End of Dynamic Section -->
+                    <button title="Close" class="editclose_modal">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+
+
+      				<!--delete confirm modal here -->
+      <div class="modal" style="display: none">
+        <div class="overlay"></div>
+        <div class="modal_content">
+          <!-- Dynamic Section -->
+          <h2 id="modaltitle"></h2>
+          <iframe src="" id="iframe" width="480" height="273" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/">via GIPHY</a></p>
+          <!-- End of Dynamic Section -->
+          <button title="Close" class="close_modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+			
+
+      <div class="col-md-5 col-sm-9 col-xs-9">
+        <h1>Node Js Crud Custom Modals</h1>
+
+        <form id="form">
+
+          <div class="form-group">
+            <label>Name</label><input type="text" class='form-control' name="client-name" placeholder="Enter name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email</label><input type="email" class='form-control' name="client-email" aria-describedby="emailHelp" placeholder="Enter email" required>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Comments</label><textarea class="form-control" name="comment" placeholder="Enter Comments "rows="3"></textarea>
+          </div>
+          
+          <button id="submit-btn" type="submit" class="btn btn-primary btn-lg btn-block">Submit Data</button>
+        </form>
+
+        <ul id=comments class='list-group'></ul>
+      </div>
+
+    </div>
+  </div>
+  </div>
+  <script>
+    //     if ('serviceWorker' in navigator) {
+    //   window.addEventListener('load', function() {
+    //     navigator.serviceWorker.register('service-worker.js')
+    //       .then(reg => {
+    //         console.log('Service worker registered! 😎', reg);
+    //       })
+    //       .catch(err => {
+    //         console.log('😥 Service worker registration failed: ', err);
+    //       });
+    //   });
+    // }
+  </script>
+  <script src="index.js"></script>
+
+</body>
+
+</html>
