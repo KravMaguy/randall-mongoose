@@ -9,6 +9,14 @@ app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
 app.use(helmet.ieNoOpen());
 
+var ninetyDaysInMilliseconds = 90*24*60*60*1000;
+//when you get a certificate
+app.use(helmet.hsts({maxAge: ninetyDaysInMilliseconds}));
+// Use `helmet.dnsPrefetchControl()` unnecessary for now
+app.use(helmet.dnsPrefetchControl());
+// because we are in production mode we should disable the cached according to what is said on freecodecamp 
+//curriculum  how to text wrap in vsCode? 
+
 
 mongoose.connect('mongodb://localhost:27017/feedbacks',{useNewUrlParser: true});
 mongoose.set('useFindAndModify', false);
