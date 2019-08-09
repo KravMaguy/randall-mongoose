@@ -3,6 +3,14 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var helmet = require('helmet');
+
+
+
+mongoose.connect('mongodb://localhost:27017/feedbacks',{useNewUrlParser: true});
+mongoose.set('useFindAndModify', false);
+
+
+const app = express();
 app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
 app.use(helmet.frameguard({action: 'deny'}));
 app.use(helmet.xssFilter());
@@ -16,13 +24,6 @@ app.use(helmet.hsts({maxAge: ninetyDaysInMilliseconds}));
 app.use(helmet.dnsPrefetchControl());
 // because we are in production mode we should disable the cached according to what is said on freecodecamp 
 //curriculum  how to text wrap in vsCode? 
-
-
-mongoose.connect('mongodb://localhost:27017/feedbacks',{useNewUrlParser: true});
-mongoose.set('useFindAndModify', false);
-
-
-const app = express();
 
 const { addComment, getComments, deleteComment, updateComment } = require('./src/routes.js');
 app.use(bodyParser.urlencoded({ extended: false }));
