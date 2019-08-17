@@ -105,30 +105,24 @@ const displayUpdateModal= id =>{
     e.preventDefault();
     console.log('inside EditCOmment the id is :'+newId)
         fetch('/update/' + newId, {
-      method: 'Put',
-    //    headers : {
-    //      "Content-Type" : "application/json; charset=utf-8" 
-    //  },   
-    body : new URLSearchParams(formData)
+        method: 'Put', 
+        body : new URLSearchParams(formData)
   })
        .then(response => response.json())
 
       .then(function (response) {
         if (response.status === 'success') {
-         // removeComment(id);
          console.log(response)
          toggleModal()
          updateDomComment(newId, response.data.comment)
          tSuccess.open();
          setTimeout(tSuccess.close, 3000);  
-          //let commentVal=document.getElementById('editInputs').value   
         }
        
 
       })
       .catch(err => {
         console.log('fetch update didn\'t succeed\n' + err);
-        //modal.displayModal('failure');
         toggleModal()
 
         tError.open();
@@ -179,11 +173,8 @@ const updateDomComment = (id, response) => {
 
   let updated= elem.childNodes[3].innerHTML;
   console.log(updated)
-  //document.getElementById('editInputs').value.innerHTML=updated;
   console.log('response :')
   console.log(response)
-  //var variable = document.getElementById('editInputs').value;
-  //document.getElementById('alert').innerHTML = 'The user input is: ' + variable;
   elem.childNodes[3].innerHTML=response;
 }
 
