@@ -74,7 +74,6 @@ const tError = new Snap({
 
  
 const appendEditModal = () => {
-
   let title = document.getElementById('modaltitle');
   let x = document.createTextNode("Edit :");
   title.appendChild(x);
@@ -89,20 +88,30 @@ const appendEditModal = () => {
   nameLabel.innerText = 'name'
   form_group.append(nameLabel)
   
-
   $input = document.createElement('input')
   $input.setAttribute('type','text')
-  $input.setAttribute('classs','form-control')
+  $input.setAttribute('class','form-control')
   $input.setAttribute('name','client-name')
   $input.setAttribute('placeholder','enter name')
   $input.setAttribute('required','')
   form_group.append($input)
+  
+  let form_group2 = document.createElement('div');
+  form_group2.setAttribute('class',"form-group");
+  let commentLabel= document.createElement('label')
+  commentLabel.innerText = 'comments'
+  form_group.append(commentLabel)
+  $input2 = document.createElement('textarea')
+  $input2.setAttribute('id','editInputs')
+  $input2.setAttribute('class','form-control')
+  $input2.setAttribute('name','comment')
+  $input2.setAttribute('placeholder','enter comments')
+  $input2.setAttribute('rows','3')
+    form_group2.append($input2)
+
 
   $form.appendChild(form_group)
-
-
-
-  
+  $form.appendChild(form_group2)
   editForm.appendChild($form);
 }
 
