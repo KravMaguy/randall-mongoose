@@ -72,19 +72,60 @@ const tError = new Snap({
   icon: 'fa fa-ban'
 });
 
+ 
+const appendEditModal = () => {
+
+  let title = document.getElementById('modaltitle');
+  let x = document.createTextNode("Edit :");
+  title.appendChild(x);
+  let editForm = document.getElementById('placeholder');
+  const $form = document.createElement('form');
+  $form.setAttribute('method',"put");
+  $form.setAttribute('id',"editcommentForm");
+  $form.setAttribute('action',"/update");
+  let form_group = document.createElement('div');
+  form_group.setAttribute('class',"form-group");
+  let nameLabel= document.createElement('label')
+  nameLabel.innerText = 'name'
+  form_group.append(nameLabel)
+  
+
+  $input = document.createElement('input')
+  $input.setAttribute('type','text')
+  $input.setAttribute('classs','form-control')
+  $input.setAttribute('name','client-name')
+  $input.setAttribute('placeholder','enter name')
+  $input.setAttribute('required','')
+  form_group.append($input)
+
+  $form.appendChild(form_group)
+
+
+
+  
+  editForm.appendChild($form);
+}
+
+//update comment modal functionality
 const displayUpdateModal= id =>{
+   // call appendEditModal here
+  appendEditModal();
   let newId=id;
-  var modal = document.querySelector('.editmodal');
+  var modal = document.querySelector('.modal');
+
+
+
+
   function attachModalListeners(modalElm) {
-    modalElm.querySelector('.editclose_modal').addEventListener('click', toggleModal);
-    modalElm.querySelector('.editoverlay').addEventListener('click', toggleModal);
+    modalElm.querySelector('.close_modal').addEventListener('click', toggleModal);
+    modalElm.querySelector('.overlay').addEventListener('click', toggleModal);
     document.getElementById('edit-btn').addEventListener('click', EditComment);
 
   }
   
   function detachModalListeners(modalElm) {
-    modalElm.querySelector('.editclose_modal').removeEventListener('click', toggleModal);
-    modalElm.querySelector('.editoverlay').removeEventListener('click', toggleModal);
+    modalElm.querySelector('.close_modal').removeEventListener('click', toggleModal);
+    modalElm.querySelector('.overlay').removeEventListener('click', toggleModal);
     document.getElementById('edit-btn').removeEventListener('click', EditComment);
 
   }
@@ -131,13 +172,26 @@ const displayUpdateModal= id =>{
   }
    toggleModal();
 }
+//end Update comment modal functionality
 
 
+//here is the delete modal
 const modal = (() => {
   const modal = document.querySelector(".modal");
-  const iframe = document.getElementById("iframe");
+  //const iframe = document.createElement('iframe');
   const modaltitle = document.getElementById("modaltitle");
+  //iframe.setAttribute("src", "");
+    //iframe.style.width = "480px";
+    //iframe.style.height = "273px";
+    //modaltitle.insertAdjacentHTML("afterend", iframe);
+   // modaltitle.appendChild(iframe);  
 
+   //let element = document.getElementById("placeholder");
+   //let template = document.getElementById("iframeTemplate");
+    //let html = template.innerHTML;
+    
+    //element.innerHTML = html;
+    
   const toggleModal = function() {
     const currentState = modal.style.display;
     modal.style.display = currentState === 'none' ? 'block' : 'none';
@@ -149,11 +203,12 @@ const modal = (() => {
   };
 
   const displayModal = (status) => {
-    modaltitle.innerHTML = status;
+   
     const setModalStatus = () => {
-      const successVideo = 'https://giphy.com/embed/l52CGyJ4LZPa0';
-      const failureVideo = 'https://giphy.com/embed/EXHHMS9caoxAA';
-      iframe.src = status === 'success' ? successVideo : failureVideo;
+      // const successVideo = 'https://giphy.com/embed/l52CGyJ4LZPa0';
+      // const failureVideo = 'https://giphy.com/embed/EXHHMS9caoxAA';
+      // iframe.src = status === 'success' ? successVideo : failureVideo;
+      modaltitle.innerHTML = status;
     };
 
     toggleModal();
@@ -166,6 +221,7 @@ const modal = (() => {
     displayModal  
   }
 })();
+//end delete modal functionality
 
 const updateDomComment = (id, response) => {
   const elem = document.getElementById(`${id}`);
