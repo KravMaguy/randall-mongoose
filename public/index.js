@@ -109,10 +109,20 @@ const appendEditModal = () => {
   $input2.setAttribute('rows','3')
     form_group2.append($input2)
 
+  let submit = document.createElement('button')
+  submit.setAttribute('id','edit-btn')
+  submit.setAttribute('type','submit')
+  submit.setAttribute('class','btn btn-primary btn-lg btn-block')
+  submit.innerText = 'submit'
+
+
+
 
   $form.appendChild(form_group)
   $form.appendChild(form_group2)
+  $form.appendChild(submit)
   editForm.appendChild($form);
+
 }
 
 //update comment modal functionality
@@ -125,16 +135,19 @@ const displayUpdateModal= id =>{
 
 
 
-  function attachModalListeners(modalElm) {
-    modalElm.querySelector('.close_modal').addEventListener('click', toggleModal);
-    modalElm.querySelector('.overlay').addEventListener('click', toggleModal);
+  function attachModalListeners() {
+    console.log('attached')
+    document.querySelector('.close_modal').addEventListener('click', toggleModal);
+    document.querySelector('.close_modal').addEventListener('click', console.log('it was .. clicked'));
+
+    document.querySelector('.overlay').addEventListener('click', toggleModal);
     document.getElementById('edit-btn').addEventListener('click', EditComment);
 
   }
   
-  function detachModalListeners(modalElm) {
-    modalElm.querySelector('.close_modal').removeEventListener('click', toggleModal);
-    modalElm.querySelector('.overlay').removeEventListener('click', toggleModal);
+  function detachModalListeners() {
+    document.querySelector('.close_modal').removeEventListener('click', toggleModal);
+    document.querySelector('.overlay').removeEventListener('click', toggleModal);
     document.getElementById('edit-btn').removeEventListener('click', EditComment);
 
   }
@@ -302,6 +315,7 @@ const deleteComment = e => {
         if (response.status === 'success') {
           removeComment(id);
         }
+        console.log('this is the issue when it pops up')
         modal.displayModal(response.status);
       })
       .catch(err => {
