@@ -199,12 +199,6 @@ const displayUpdateModal= id =>{
 
 //here is the delete modal
 const modal = (() => {
-
-  const myNode = document.getElementById("placeholder");
-  while (myNode.firstChild) {
-    myNode.removeChild(myNode.firstChild);
-  }
-
   const modal = document.querySelector(".modal");
   //const iframe = document.createElement('iframe');
   const modaltitle = document.getElementById("modaltitle");
@@ -321,6 +315,11 @@ const deleteComment = e => {
       .then(function (response) {
         if (response.status === 'success') {
           removeComment(id);
+          const node = document.getElementById("placeholder");
+ 
+          while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
         }
         console.log('this is the issue when it pops up')
         modal.displayModal(response.status);
