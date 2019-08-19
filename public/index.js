@@ -199,9 +199,16 @@ const displayUpdateModal= id =>{
 
 //here is the delete modal
 const modal = (() => {
+
+  const myNode = document.getElementById("placeholder");
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+  }
+
   const modal = document.querySelector(".modal");
   //const iframe = document.createElement('iframe');
   const modaltitle = document.getElementById("modaltitle");
+
   //iframe.setAttribute("src", "");
     //iframe.style.width = "480px";
     //iframe.style.height = "273px";
