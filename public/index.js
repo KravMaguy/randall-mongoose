@@ -313,18 +313,22 @@ const deleteComment = e => {
     })
       .then(response => response.json())
       .then(function (response) {
+        let node = document.getElementById("placeholder");
+ 
+        while (node.hasChildNodes()) {
+          node.removeChild(node.lastChild);
+      }
         if (response.status === 'success') {
           removeComment(id);
-          const node = document.getElementById("placeholder");
- 
-          while (node.firstChild) {
-            node.removeChild(node.firstChild);
-        }
         }
         console.log('this is the issue when it pops up')
         modal.displayModal(response.status);
       })
       .catch(err => {
+        let node= document.getElementById("placeholder");
+        while (node.hasChildNodes()) {
+          node.removeChild(node.lastChild);
+      }
         console.log('fetch delete didn\'t succeed\n' + err);
         modal.displayModal('failure');
       });
