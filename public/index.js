@@ -175,7 +175,6 @@ const displayUpdateModal= id =>{
 
       .then(function (response) {
         if (response.status === 'success') {
-         console.log(response)
          toggleModal()
          updateDomComment(newId, response.data.comment)
          tSuccess.open();
@@ -185,9 +184,7 @@ const displayUpdateModal= id =>{
 
       })
       .catch(err => {
-        console.log('fetch update didn\'t succeed\n' + err);
         toggleModal()
-
         tError.open();
         setTimeout(tError.close, 3000);  
       });
@@ -200,21 +197,7 @@ const displayUpdateModal= id =>{
 //here is the delete modal
 const modal = (() => {
   const modal = document.querySelector(".modal");
-  //const iframe = document.createElement('iframe');
-  const modaltitle = document.getElementById("modaltitle");
-
-  //iframe.setAttribute("src", "");
-    //iframe.style.width = "480px";
-    //iframe.style.height = "273px";
-    //modaltitle.insertAdjacentHTML("afterend", iframe);
-   // modaltitle.appendChild(iframe);  
-
-   //let element = document.getElementById("placeholder");
-   //let template = document.getElementById("iframeTemplate");
-    //let html = template.innerHTML;
-    
-    //element.innerHTML = html;
-    
+  const modaltitle = document.getElementById("modaltitle");  
   const toggleModal = function() {
     const currentState = modal.style.display;
     modal.style.display = currentState === 'none' ? 'block' : 'none';
@@ -248,12 +231,7 @@ const modal = (() => {
 
 const updateDomComment = (id, response) => {
   const elem = document.getElementById(`${id}`);
-  console.log('updated :')
-
   let updated= elem.childNodes[3].innerHTML;
-  console.log(updated)
-  console.log('response :')
-  console.log(response)
   elem.childNodes[3].innerHTML=response;
 }
 
@@ -334,6 +312,8 @@ const deleteComment = e => {
       });
   }
 };
+
+
 
 //in here first show the modal with the form and then update it
 const updateComment = e => {
