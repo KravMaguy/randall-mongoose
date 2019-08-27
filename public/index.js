@@ -211,9 +211,7 @@ const modal = (() => {
   const displayModal = (status) => {
    
     const setModalStatus = () => {
-      // const successVideo = 'https://giphy.com/embed/l52CGyJ4LZPa0';
-      // const failureVideo = 'https://giphy.com/embed/EXHHMS9caoxAA';
-      // iframe.src = status === 'success' ? successVideo : failureVideo;
+
       modaltitle.innerHTML = status;
     };
 
