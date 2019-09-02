@@ -1,3 +1,34 @@
+function attachModalListeners() {
+  console.log('attached')
+  document.querySelector('.close_modal').addEventListener('click', toggleModal);
+  document.querySelector('.close_modal').addEventListener('click', console.log('it was .. clicked'));
+
+  document.querySelector('.overlay').addEventListener('click', toggleModal);
+
+}
+
+function detachModalListeners() {
+  document.querySelector('.close_modal').removeEventListener('click', toggleModal);
+  document.querySelector('.overlay').removeEventListener('click', toggleModal);
+
+}
+
+function toggleModal() {
+  const modal = document.querySelector(".modal");
+
+  var currentState = modal.style.display;
+  // If modal is visible, hide it. Else, display it.
+  if (currentState === 'none') {
+    modal.style.display = 'block';
+    attachModalListeners(modal);
+  } else {
+    modal.style.display = 'none';
+    detachModalListeners(modal);  
+  }
+}
+
+
+
 (function(window) {
 
   const $body = document.querySelector('body');
@@ -75,9 +106,11 @@ const tError = new Snap({
  
 const appendEditModal = () => {
   let title = document.getElementById('modaltitle');
+  title.innerHTML='';
   let x = document.createTextNode("Edit :");
   title.appendChild(x);
   let editForm = document.getElementById('placeholder');
+  editForm.innerHTML='';
   const $form = document.createElement('form');
   $form.setAttribute('method',"put");
   $form.setAttribute('id',"editcommentForm");
@@ -130,39 +163,6 @@ const displayUpdateModal= id =>{
    // call appendEditModal here
   appendEditModal();
   let newId=id;
-  var modal = document.querySelector('.modal');
-
-
-
-
-  function attachModalListeners() {
-    console.log('attached')
-    document.querySelector('.close_modal').addEventListener('click', toggleModal);
-    document.querySelector('.close_modal').addEventListener('click', console.log('it was .. clicked'));
-
-    document.querySelector('.overlay').addEventListener('click', toggleModal);
-    document.getElementById('edit-btn').addEventListener('click', EditComment);
-
-  }
-  
-  function detachModalListeners() {
-    document.querySelector('.close_modal').removeEventListener('click', toggleModal);
-    document.querySelector('.overlay').removeEventListener('click', toggleModal);
-    document.getElementById('edit-btn').removeEventListener('click', EditComment);
-
-  }
-
-  function toggleModal() {
-    var currentState = modal.style.display;
-    // If modal is visible, hide it. Else, display it.
-    if (currentState === 'none') {
-      modal.style.display = 'block';
-      attachModalListeners(modal);
-    } else {
-      modal.style.display = 'none';
-      detachModalListeners(modal);  
-    }
-  }
   function EditComment(e){
     const formData = new FormData(document.getElementById("editcommentForm"));
     e.preventDefault();
@@ -198,28 +198,14 @@ const displayUpdateModal= id =>{
 const modal = (() => {
   const modal = document.querySelector(".modal");
   const modaltitle = document.getElementById("modaltitle");  
-  const toggleModal = function() {
-    const currentState = modal.style.display;
-    modal.style.display = currentState === 'none' ? 'block' : 'none';
-  };
-
-  const attachListeners = () => {
-    modal.querySelector('.close_modal').addEventListener('click', toggleModal);
-    modal.querySelector('.overlay').addEventListener('click', toggleModal);
-  };
-
   const displayModal = (status) => {
-   
     const setModalStatus = () => {
-
       modaltitle.innerHTML = status;
     };
-
     toggleModal();
     setModalStatus();
   }
-
-  attachListeners();
+  //attachListeners();
 
   return {
     displayModal  
@@ -315,7 +301,7 @@ const deleteComment = e => {
 
 //in here first show the modal with the form and then update it
 const updateComment = e => {
- 
+ console.log('yoooooooo**********')
   let target = event.target;
   console.log(target)
   console.log(target.className.indexOf('update'));
